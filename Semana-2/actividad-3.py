@@ -5,6 +5,9 @@
 # 5. Calcular el porcentaje 
 # 6. Elevar a una potencia
 
+import time
+
+
 opcion0 = "Salir";
 opcion1 = "Saludar";
 opcion2 = "Calcular si un número es par";
@@ -78,33 +81,37 @@ def elevarpotencia(num1, num2):
     res = (num1 ** num2) 
     return res
 
-#region Main
-imprimiropciones()
-select_opt = int(input("Elija una opción: "))
-if select_opt >= 0 and select_opt < 6:
-    opcion = opcionLista[select_opt]
-    if opcion == opcion1:
-        saludar() 
-    elif opcion == opcion2:
-        validarpar(int(input("Escriba el número a evaluar: "))) 
-    elif opcion == opcion3:
-        calcularpromedio()
-    elif opcion == opcion4:
-        resto = calcularmodulo(int(input("Escriba el primer número: ")), int(input("Escriba el segundo número: ")))
-        print(f"El resto o módulo de los dos números es: {resto}")
-    elif opcion == opcion5:
-        valor_porcentaje = calcularporcentaje(float(input("Escriba el porcentaje a aplicar: ")), float(input("Escriba el número: ")))
-        print(f"El porcentaje es: {valor_porcentaje}")
-    elif opcion == opcion6:
-        valor_potencia = elevarpotencia(int(input("Escriba el primer número: ")), int(input("Escriba el segundo número: ")))
-        print(f"El resultado de la potencia es: {valor_potencia}")
-    elif opcion == opcion0:
-        print("Saliendo del programa...")    
-        exit()
-else:
-    print("Opción inválida")
 
-    
+#region Main
+select_opt = None
+while select_opt != 0:    
+    imprimiropciones()
+    select_opt = int(input("Elija una opción: "))
+    if select_opt > 0 and select_opt < 6:
+        opcion = opcionLista[select_opt]
+        if opcion == opcion1:
+            saludar()
+            time.sleep(2) 
+        elif opcion == opcion2:
+            validarpar(int(input("Escriba el número a evaluar: ")))
+            time.sleep(2)  
+        elif opcion == opcion3:
+            calcularpromedio()
+            time.sleep(2) 
+        elif opcion == opcion4:
+            resto = calcularmodulo(int(input("Escriba el primer número: ")), int(input("Escriba el segundo número: ")))
+            print(f"El resto o módulo de los dos números es: {resto}")
+            time.sleep(2) 
+        elif opcion == opcion5:
+            valor_porcentaje = calcularporcentaje(float(input("Escriba el porcentaje a aplicar: ")), float(input("Escriba el número: ")))
+            print(f"El porcentaje es: {valor_porcentaje}")
+            time.sleep(2) 
+        elif opcion == opcion6:
+            valor_potencia = elevarpotencia(int(input("Escriba el primer número: ")), int(input("Escriba el segundo número: ")))
+            print(f"El resultado de la potencia es: {valor_potencia}")
+            time.sleep(2)
+    else:
+        print("Opción no válida")
+print("Saliendo del programa...")  
 
 #endregion Main
-
