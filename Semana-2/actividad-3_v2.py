@@ -25,22 +25,22 @@ while opcion != 0:
     opcion = int(input("Seleccione una opción: "))
     if opcion >= 0 and opcion <= 6:
         if opcion == 1:
-            saludar()
+            saludar() # Llamo a la fución saludar()
             time.sleep(2)
         elif opcion == 2:
-            print("Calcular número par")
+            print("Calcular número par") # Llamo a la función calcularpar()
             time.sleep(2)
         elif opcion == 3:
-            print("Calcular promedio de 5 notas")
+            print("Calcular promedio de 5 notas") # Llamo a la función calcularpromedio()
             time.sleep(2)
         elif opcion == 4:
-            print("Calcular porcentaje")
+            print("Calcular porcentaje") # Llamo a la función calcularporcentaje()
             time.sleep(2)
         elif opcion == 5:
-            print("Elevar a una potencia")
+            print("Elevar a una potencia") # Llamo a la función calcularpotencia()
             time.sleep(2)
         elif opcion == 6:
-            print("Calcular el módulo")
+            print("Calcular el módulo") # Llamo a la función calcularmodulo()
             time.sleep(2)        
     else:
         print("Opción no válida")
