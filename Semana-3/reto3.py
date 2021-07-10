@@ -1,8 +1,11 @@
-# MinTIC Reto 2 - Primera parte
+# MinTIC Reto 3 - Tercera parte
 # Autor: guzmanE
 # Date        Description
 # 01.07.21    Initial version
 # 02.07.21    Optimizado (Uso de funciones def)
+# 07.07.21    RF01 Actualizar contraseña
+# 07.07.21    RF02 Ingresar coordenadas de los tres sitios que más frecuenta (trabajo, casa, parque).
+
 # --          --
 
 # Sistema Login @ TicNet Corp @
@@ -17,6 +20,7 @@ import os
 msgBienvenido = "Bienvenido al sistema de ubicación para zonas públicas WIFI"
 msgError = "Error"
 msgOk = "Sesión iniciada"
+msg_error_coordinate = "Error coordenada"
 name = "52208"
 stored_passw = "80225"
 calDigito = ((8 // 2) + 8)  - (2 ** 2 + (5 * 2) - 2)
