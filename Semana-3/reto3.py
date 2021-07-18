@@ -108,7 +108,7 @@ def addcoordinates(list_coordinates):
                     if longitud >= 1  and longitud <= 10: # Validar que este dentro del rango
                         lista[i].insert(0, latitude)
                         lista[i].insert(1, longitud)
-                        else:
+                    else:
                         ErrorMessage(msg_error_coordinate)
                         lista = []
                         exit()
