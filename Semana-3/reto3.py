@@ -92,11 +92,10 @@ def addcoordinates(list_coordinates):
         if latitude == "" or latitude == " ": # validar que ingrese un valor de latitud válido
             ErrorMessage(msgError) # Muestra error y sale del programa
             lista = []
-            #return lista
             exit()
         else:
             latitude = float(latitude) # Cast a float para validar rango de latitud
-            if latitude >= 1 and latitude <= 10: # Validar que este dentro del rango
+            if latitude >= -4.227 and latitude <= -3.002: # Validar que este dentro del rango
                 longitud = input("Ingrese la longitud: ") # Ingresar longuitud
                 if longitud == "" or longitud == " ": # validar que ingrese un valor de longuitud válido
                     ErrorMessage(msgError) # Muestra error y sale del programa
@@ -105,7 +104,7 @@ def addcoordinates(list_coordinates):
                     exit()
                 else:
                     longitud = float(longitud) # Cast a float para validar rango de longuitud
-                    if longitud >= 1  and longitud <= 10: # Validar que este dentro del rango
+                    if longitud >= -70.365  and longitud <= -69.714: # Validar que este dentro del rango
                         lista[i].insert(0, latitude)
                         lista[i].insert(1, longitud)
                     else:
@@ -129,22 +128,11 @@ def printcoordinates(list_coordinates):
     avgcoordinates(lista)
     # Modificar opción:
     option = int(input("Presione 1,2 ó 3 para actualizar la respectiva coordenada. Presione 0 para regresar al menú: "))
-    if option >= 0 and option <=3:
-        if option == 1:
-            updatecoordinates(option, list_coordinates)
-        elif option == 2:
-            updatecoordinates(option, list_coordinates)
-        elif option == 3:
-            updatecoordinates(option, list_coordinates)
-        elif option == 0:
-            return
-        # if option != 1 and option != 2 and option !=3:
-        #     ErrorMessage(msg_error_update)
-        #     exit()
-        # elif option == 0:
-        #     return         
+    if option != 1 and option != 2 and option !=3:
+        ErrorMessage(msg_error_update)
+        exit()
     else:
-        ErrorMessage(msg_error_update)            
+        updatecoordinates(option, list_coordinates)             
 
 def infocoordinates(list_coordinates):
     print(f"La coordenada que está mas al occidente: {min(list_coordinates, key=lambda posicion: posicion[0])}")
@@ -161,20 +149,19 @@ def updatecoordinates(option, list_coordinates):
         exit()
     else:
         latitude = float(latitude) # Cast a float para validar rango de latitud
-        if latitude >= 1 and latitude <= 10: # Validar que este dentro del rango
+        if latitude >= -4.227 and latitude <= -3.002: # Validar que este dentro del rango
             longitud = input("Ingrese la longitud: ") # Ingresar longuitud
             if longitud == "" or longitud == " ": # validar que ingrese un valor de longuitud válido
                 ErrorMessage(msgError) # Muestra error y sale del programa
                 exit()
             else:
                 longitud = float(longitud) # Cast a float para validar rango de longuitud
-                if longitud >= 1  and longitud <= 10: # Validar que este dentro del rango
+                if longitud >= -70.365  and longitud <= -69.714: # Validar que este dentro del rango
                     lista[option][0] = latitude
                     lista[option][1] = longitud
                 else:
                     ErrorMessage(msg_error_coordinate)
                     lista = [list_coordinates]
-                    #return lista
                     exit()
         else:
             ErrorMessage(msg_error_coordinate)
@@ -206,8 +193,7 @@ if validatedata(name, userName):
                     elif selectOptList == iMenu02:
                         # RF02
                         if coordinates == []:
-                            coordinates = addcoordinates(coordinates) 
-                            # print(coordinates)   
+                            coordinates = addcoordinates(coordinates)                             
                         else:
                             # RF03
                             # Llamar a la función imprimir coordenadas (printcoordinates)
