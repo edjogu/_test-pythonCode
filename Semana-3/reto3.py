@@ -1,3 +1,4 @@
+
 # MinTIC Reto 3 - Tercera parte
 # Autor: guzmanE
 # Date        Description
@@ -12,6 +13,8 @@
 
 # Define Variables
 #
+# if latitude >= -3.002  and latitude <= -4.227: # Validar que este dentro del rango
+# if longitud >= -69.714  and longitud <= -70.365: # Validar que este dentro del rango
 
 import time
 import os
@@ -21,6 +24,7 @@ msgBienvenido = "Bienvenido al sistema de ubicación para zonas públicas WIFI"
 msgError = "Error"
 msgOk = "Sesión iniciada"
 msg_error_coordinate = "Error coordenada"
+msg_error_update = "Error actualización"
 name = "52208"
 stored_passw = "80225"
 calDigito = ((8 // 2) + 8)  - (2 ** 2 + (5 * 2) - 2)
@@ -35,6 +39,12 @@ iMenu07 = "Cerrar sesión";
 # Definir lista 
 optMenuList = [iMenu01, iMenu02, iMenu03, iMenu04, iMenu05, iMenu06, iMenu07];
 countErrors = 0
+# Definir lista vacía para las coordenadas
+coordinates = []
+tmp_coordinates = [[None, None], 
+                [None, None], 
+                [None, None]]
+
 #endregion Variables Globales
 
 #region Funciones
@@ -73,11 +83,108 @@ def ErrorMessage(msg):
     os.system("cls")
     print(msg)
     time.sleep(2)
+
+def addcoordinates(list_coordinates):
+    lista = list(list_coordinates)
+    for i in range (0, 3):
+        lista.append([])
+        latitude = input("Ingrese la latitud: ") # Ingresar latitud
+        if latitude == "" or latitude == " ": # validar que ingrese un valor de latitud válido
+            ErrorMessage(msgError) # Muestra error y sale del programa
+            lista = []
+            #return lista
+            exit()
+        else:
+            latitude = float(latitude) # Cast a float para validar rango de latitud
+            if latitude >= 1 and latitude <= 10: # Validar que este dentro del rango
+                longitud = input("Ingrese la longitud: ") # Ingresar longuitud
+                if longitud == "" or longitud == " ": # validar que ingrese un valor de longuitud válido
+                    ErrorMessage(msgError) # Muestra error y sale del programa
+                    lista = []
+                    #return lista
+                    exit()
+                else:
+                    longitud = float(longitud) # Cast a float para validar rango de longuitud
+                    if longitud >= 1  and longitud <= 10: # Validar que este dentro del rango
+                        lista[i].insert(0, latitude)
+                        lista[i].insert(1, longitud)
+                        else:
+                        ErrorMessage(msg_error_coordinate)
+                        lista = []
+                        exit()
+            else:
+                ErrorMessage(msg_error_coordinate)
+                lista = []
+                exit()
+    return lista  
+
+def printcoordinates(list_coordinates):
+    lista = list(list_coordinates)
+    print(f"Las coordenadas guardadas actualmente son: ")
+    for i in range(0, len(lista)):
+        print(f"coordenada [latitud,longitud] {i + 1} : {[lista[i][0]]} {[lista[i][1]]}")
+    # Llamar a la funcion información coordenadas
+    infocoordinates(lista)
+    # Llamar a la funcion promedio coordenadas
+    avgcoordinates(lista)
+    # Modificar opción:
+    option = int(input("Presione 1,2 ó 3 para actualizar la respectiva coordenada. Presione 0 para regresar al menú: "))
+    if option >= 0 and option <=3:
+        if option == 1:
+            updatecoordinates(option, list_coordinates)
+        elif option == 2:
+            updatecoordinates(option, list_coordinates)
+        elif option == 3:
+            updatecoordinates(option, list_coordinates)
+        elif option == 0:
+            return
+        # if option != 1 and option != 2 and option !=3:
+        #     ErrorMessage(msg_error_update)
+        #     exit()
+        # elif option == 0:
+        #     return         
+    else:
+        ErrorMessage(msg_error_update)            
+
+def infocoordinates(list_coordinates):
+    print(f"La coordenada que está mas al occidente: {min(list_coordinates, key=lambda posicion: posicion[0])}")
+
+def avgcoordinates(list_coordinates):
+    print(f"Coordenada promedio de todos los puntos: {(list_coordinates[0][0]+list_coordinates[1][0]+list_coordinates[2][0])/3}")
+    
+def updatecoordinates(option, list_coordinates):
+    option -=1
+    lista = list(list_coordinates)
+    latitude = input("Ingrese la latitud: ") # Ingresar latitud
+    if latitude == "" or latitude == " ": # validar que ingrese un valor de latitud válido
+        ErrorMessage(msgError) # Muestra error y sale del programa
+        exit()
+    else:
+        latitude = float(latitude) # Cast a float para validar rango de latitud
+        if latitude >= 1 and latitude <= 10: # Validar que este dentro del rango
+            longitud = input("Ingrese la longitud: ") # Ingresar longuitud
+            if longitud == "" or longitud == " ": # validar que ingrese un valor de longuitud válido
+                ErrorMessage(msgError) # Muestra error y sale del programa
+                exit()
+            else:
+                longitud = float(longitud) # Cast a float para validar rango de longuitud
+                if longitud >= 1  and longitud <= 10: # Validar que este dentro del rango
+                    lista[option][0] = latitude
+                    lista[option][1] = longitud
+                else:
+                    ErrorMessage(msg_error_coordinate)
+                    lista = [list_coordinates]
+                    #return lista
+                    exit()
+        else:
+            ErrorMessage(msg_error_coordinate)
+            lista = [list_coordinates]
+            exit()
+    return lista 
+    
 #endregion Funciones
 
-# RF01:
 print(msgBienvenido) # Mensaje de bienvendida
-
 userName = input("Nombre de usuario: ")
 if validatedata(name, userName):
     userPass = input("Contraseña: ")
@@ -88,18 +195,23 @@ if validatedata(name, userName):
             print(msgOk)
             time.sleep(2)
             while countErrors < 3:
-                # RF01
                 os.system("cls")
                 PrintMenuList() # Visualizar menu de opciones         
-                #region RF03
                 selectOpt = int(input("Elija una opción: "))
                 if selectOpt > 0 and selectOpt < 8:
                     selectOptList = optMenuList[selectOpt-1]
                     if selectOptList == iMenu01:
+                        # RF01
                         stored_passw = changepassword(stored_passw)                        
                     elif selectOptList == iMenu02:
-                        print(f"Usted ha elegido la opción {selectOpt}")
-                        exit()
+                        # RF02
+                        if coordinates == []:
+                            coordinates = addcoordinates(coordinates) 
+                            # print(coordinates)   
+                        else:
+                            # RF03
+                            # Llamar a la función imprimir coordenadas (printcoordinates)
+                            printcoordinates(coordinates)
                     elif selectOptList == iMenu03:
                         print(f"Usted ha elegido la opción {selectOpt}")
                         exit()
@@ -110,7 +222,6 @@ if validatedata(name, userName):
                         print(f"Usted ha elegido la opción {selectOpt}")
                         exit()
                     elif selectOptList == iMenu06:
-                        #region RF02
                         newFavOpt = int(input("Seleccione opción favorita: "))
                         if newFavOpt == 1 or newFavOpt == 2 or newFavOpt == 3 or newFavOpt == 4 or newFavOpt == 5:
                             # Doble check for user
@@ -125,18 +236,14 @@ if validatedata(name, userName):
                                 ErrorMessage(msgError)                                
                         else:
                             ErrorMessage(msgError)
-                            exit() 
-                        #endregion RF02                      
-                    #region RF05
+                            exit()                                           
                     elif selectOptList == iMenu07:
                         ErrorMessage("Hasta pronto")
-                        exit()
-                    #endregion RF05
+                        exit()                    
                 else:
                     countErrors += 1 # Incremento el contador
                     ErrorMessage(msgError)
-                    continue
-                #endregion RF03
+                    continue                
         else:
             ErrorMessage(msgError) 
     else:
