@@ -1,5 +1,5 @@
 
-# MinTIC Reto 3 - Tercera parte
+# MinTIC Reto 4 - Cuarta parte
 # Autor: guzmanE
 # Date        Description
 # 01.07.21    Initial version
@@ -7,6 +7,7 @@
 # 07.07.21    RF01 Actualizar contraseña.
 # 07.07.21    RF02 Ingresar coordenadas de los tres sitios que más frecuenta (trabajo, casa, parque).
 # 18.07.21    RF03: El programa permite al usuario actualizar las coordenadas de los tres sitios más frecuentados.
+# 21.07.21    RF01: El programa dispone de manera predefinida la ubicación de cuatro zonas wifi con su respectivo promedio de usuarios.
 
 # --          --
 
