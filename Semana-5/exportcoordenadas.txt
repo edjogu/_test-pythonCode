@@ -1,0 +1,1 @@
+{'actual': [-3.289, -70.073], 'zonawifi1': [-70.302, -1.2270013707370537, 91], 'recorrido': [59937, 'En bici tardarías ', '299.98 minutos', 'pie', 2068.22]}
